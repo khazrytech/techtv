@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050507;
+  color: #f7f7f8;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: rgba(239, 35, 60, .35);
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(14, 14, 20, .62);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg, #fff 0%, #ff5a67 48%, #5c8dff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-overlay {
+    background:
+      linear-gradient(90deg, #050507 0%, rgba(5,5,7,.88) 34%, rgba(5,5,7,.28) 72%, #050507 100%),
+      linear-gradient(0deg, #050507 0%, transparent 35%);
+  }
+}
+
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
