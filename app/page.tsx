@@ -8,7 +8,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // API Key yako halisi imewekwa hapa moja kwa moja ili kuondoa usumbufu wote
     const apiKey = '7f986e6422a0567ea19d9718a2a00ef';
+    
     fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${apiKey}`)
       .then((res) => res.json())
       .then((data) => {
@@ -19,15 +21,16 @@ export default function Home() {
         setLoading(false);
       })
       .catch((err) => {
-        console.error(err);
+        console.error('Error fetching TMDB:', err);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0a] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col items-center justify-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-red-600"></div>
+        <p className="text-gray-400 text-sm tracking-widest uppercase">Inapakia TechTV Pro...</p>
       </div>
     );
   }
@@ -40,7 +43,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent z-10" />
           <img
             src={`https://image.tmdb.org/t/p/original${featured.backdrop_path}`}
-            alt={featured.title}
+            alt={featured.title || featured.name}
             className="absolute inset-0 w-full h-full object-cover filter brightness-75 scale-105"
           />
           <div className="relative z-20 max-w-2xl space-y-4">
@@ -48,7 +51,7 @@ export default function Home() {
               🔥 #1 Trending Pro
             </span>
             <h1 className="text-4xl md:text-6xl font-black tracking-tight drop-shadow-lg">
-              {featured.title}
+              {featured.title || featured.name}
             </h1>
             <p className="text-gray-200 text-sm md:text-base line-clamp-3 drop-shadow">
               {featured.overview}
@@ -84,12 +87,12 @@ export default function Home() {
               <div className="rounded-xl overflow-hidden aspect-[2/3] bg-zinc-900 border border-zinc-800 transition transform group-hover:scale-105 group-hover:border-red-500 shadow-xl">
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
+                  alt={movie.title || movie.name}
                   className="w-full h-full object-cover"
                 />
               </div>
               <p className="mt-2 text-sm font-semibold truncate group-hover:text-red-500 transition">
-                {movie.title}
+                {movie.title || movie.name}
               </p>
               <span className="text-xs text-gray-400 font-medium">⭐ {movie.vote_average?.toFixed(1)} • {movie.release_date?.split('-')[0]}</span>
             </Link>
